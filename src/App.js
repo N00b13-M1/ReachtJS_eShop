@@ -10,16 +10,19 @@ class App extends Component {
     basket: [],
     products: [
       {
+          img: "./img/CocaCola.jpg",
           name: "Coca Cola",
           price: 1,
           stock: 4,
       },
       {
-          name: "Fanta",
+          img: "",
+          name: "./img/CocaCola.jpg",
           price: 1.5,
-          stock: 4
+          stock: 4,
       },
       {
+          img: "./img/IceTea",
           name: "Ice Tea",
           price: 2,
           stock: 4
@@ -49,7 +52,7 @@ class App extends Component {
         <div className="row d-flex">
           <div className="col-4">
           <div className="card">
-                    <img src="./img/CocaCola.jpg" className="img-fluid card-img-top" alt="coca" />
+                    <img src={this.state.products[0].img} className="img-fluid card-img-top" alt="coca" />
                     <div className="card-body">
                         <h5 className="card-title" name>{this.state.products[0].name}</h5>
                         <p className="card-prix">Prix : {this.state.products[0].price} €</p>
@@ -60,7 +63,7 @@ class App extends Component {
           </div>
           <div className="col-4">
           <div className="card">
-                    <img src="./img/Fanta.jpg" className="img-fluid card-img-top" alt="fanta" />
+                    <img src={this.state.products[1].img} className="img-fluid card-img-top" alt="fanta" />
                     <div className="card-body">
                         <h5 className="card-title">{this.state.products[1].name}</h5>
                         <p className="card-prix">Prix : {this.state.products[1].price} €</p>
@@ -71,7 +74,7 @@ class App extends Component {
           </div>
           <div className="col-4">
           <div className="card">
-                    <img src="./img/IceTea.jpg" className="card-img-top" alt="ice-tea" />
+                    <img src={this.state.products[2].img} className="card-img-top" alt="ice-tea" />
                     <div className="card-body">
                         <h5 className="card-title">{this.state.products[2].name}</h5>
                         <p className="card-prix">Prix : {this.state.products[2].price} €</p>
