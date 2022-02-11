@@ -35,36 +35,64 @@ class App extends Component {
     money -= products[i].price
     products[i].stock--
     basket.push(products[i])
+    console.log(basket)
+    console.log(basket[i])
 
-    this.setState({money, basket, products})
     if(this.state.products[i].stock === 1) {
       document.getElementsByClassName("card-body")[i].style.backgroundColor = "orange"
     } 
     else if (this.state.products[i].stock === 0) {
+      
       document.getElementsByClassName("card-body")[i].style.backgroundColor = "red";
       document.getElementsByClassName("card-body")[i].style.color = "white";
     } 
+    this.setState({money, basket, products})
   }
 
   returnItems = (i) => {
     let {money, basket, products} = {...this.state}
-    money += products[i].price
+    console.log(basket)
+    console.log(basket[i])
+    if (basket[i].name  === "Coca Cola"){
+      money += products[0].price
+      products[0].stock++
+      if(products[0].stock === 1) {
+        document.getElementsByClassName("card-body")[0].style.backgroundColor = "orange"
+      } 
+      else if (products[0].stock > 1) {
+        document.getElementsByClassName("card-body")[0].style.backgroundColor = "white";
+        document.getElementsByClassName("card-body")[0].style.color = "black";
+      } 
+    } 
+    if (basket[i].name  === "Fanta"){
+      money += products[1].price
+      products[1].stock++
+      if(products[1].stock === 1) {
+        document.getElementsByClassName("card-body")[1].style.backgroundColor = "orange"
+      } 
+      else if (products[1].stock > 1) {
+        document.getElementsByClassName("card-body")[1].style.backgroundColor = "white";
+        document.getElementsByClassName("card-body")[1].style.color = "black";
+      } 
+    }
+    if (basket[i].name === "Ice Tea"){
+      money += products[2].price
+      products[2].stock++
+      if(products[2].stock === 1) {
+        document.getElementsByClassName("card-body")[2].style.backgroundColor = "orange"
+      } 
+      else if (products[2].stock > 1) {
+        document.getElementsByClassName("card-body")[2].style.backgroundColor = "white";
+        document.getElementsByClassName("card-body")[2].style.color = "black";
+      } 
+    }
     basket.splice(i,1)
-    products[i].stock++
     this.setState({money, basket, products})
-    console.log(i)
 
-    if(this.state.products[i].stock === 1) {
-      document.getElementsByClassName("card-body")[i].style.backgroundColor = "orange"
-    } 
-    else if (this.state.products[i].stock >> 1) {
-      document.getElementsByClassName("card-body")[i].style.backgroundColor = "white";
-      document.getElementsByClassName("card-body")[i].style.color = "black";
-    } 
   }
 
   render() {
-
+    console.log(this.state.basket)
     return (
       <div>
         <div className="container">
@@ -80,7 +108,7 @@ class App extends Component {
                         {this.state.products[0].stock > 0 && 
                           <div>
                             <a href="###" className="btn btn-success" onClick={() => {this.buy(0)}}>Acheter</a>
-                            {console.log('plop')}
+                            {/* {console.log('plop')} */}
                           </div> 
                         }
                     </div>
@@ -96,7 +124,7 @@ class App extends Component {
                         {this.state.products[1].stock > 0 && 
                           <div>
                             <a href="###" className="btn btn-success" onClick={() => {this.buy(1)}}>Acheter</a>
-                            {console.log('plop')}
+                            {/* {console.log('plop')} */}
                           </div>
                         }
   
@@ -113,7 +141,7 @@ class App extends Component {
                         {this.state.products[2].stock > 0 && 
                           <div>
                             <a href="###" className="btn btn-success" onClick={() => {this.buy(2)}}>Acheter</a>
-                            {console.log('plop')}
+                            {/* {console.log('plop')} */}
                           </div>
                         }
                     </div>
@@ -124,13 +152,14 @@ class App extends Component {
           <ul className="list-unstyled">
             {this.state.basket.map((element, index) => {
               return(
-                <li key={index} className="d-flex my-2 border border-1">
+                <li key={index} className="d-flex my-2 border border-1 w-75 justify-content-between p-2">
                   <p className="my-auto mx-3">Produit: {element.name} || Unités: 1</p>
                   <a href="###" className="btn btn-danger" onClick={() => this.returnItems(index)}>Rendre</a>
                 </li>
               )
             })}
           </ul>
+          {/* <Basket/> */}
         </div>
       </div>
     );
