@@ -6,7 +6,7 @@ import './App.css'
 class App extends Component {
   
   state ={
-    argent: 20,
+    money: 20,
     basket: [],
     products: [
       {
@@ -31,17 +31,36 @@ class App extends Component {
   }
   
   buy = (i) => {
-    let {argent, basket, products} = {...this.state}
-    argent -= products[i].price
+    let {money, basket, products} = {...this.state}
+    money -= products[i].price
     products[i].stock--
     basket.push(products[i])
 
-    this.setState({argent, basket, products})
+    this.setState({money, basket, products})
+    if(this.state.products[i].stock === 1) {
+      document.getElementsByClassName("card-body")[i].style.backgroundColor = "orange"
+    } 
+    else if (this.state.products[i].stock === 0) {
+      document.getElementsByClassName("card-body")[i].style.backgroundColor = "red";
+      document.getElementsByClassName("card-body")[i].style.color = "white";
+    } 
   }
 
-  removeItems = () => {
-    console.log(this.state.basket);
-    this.setState(this.state.basket.pop())
+  returnItems = (i) => {
+    let {money, basket, products} = {...this.state}
+    money += products[i].price
+    basket.splice(i,1)
+    products[i].stock++
+    this.setState({money, basket, products})
+    console.log(i)
+
+    if(this.state.products[i].stock === 1) {
+      document.getElementsByClassName("card-body")[i].style.backgroundColor = "orange"
+    } 
+    else if (this.state.products[i].stock >> 1) {
+      document.getElementsByClassName("card-body")[i].style.backgroundColor = "white";
+      document.getElementsByClassName("card-body")[i].style.color = "black";
+    } 
   }
 
   render() {
@@ -49,7 +68,7 @@ class App extends Component {
     return (
       <div>
         <div className="container">
-        <h2>Mon Argent: {this.state.argent}</h2>
+        <h2>Mon Argent: {this.state.money}</h2>
         <div className="row d-flex">
           <div className="col-4">
           <div className="card">
@@ -62,7 +81,7 @@ class App extends Component {
                           <div>
                             <a href="###" className="btn btn-success" onClick={() => {this.buy(0)}}>Acheter</a>
                             {console.log('plop')}
-                          </div>
+                          </div> 
                         }
                     </div>
                 </div>
@@ -107,7 +126,7 @@ class App extends Component {
               return(
                 <li key={index} className="d-flex my-2 border border-1">
                   <p className="my-auto mx-3">Produit: {element.name} || Unités: 1</p>
-                  <a href="###" className="btn btn-danger" onClick={() => {this.removeItems()}}>Rendre</a>
+                  <a href="###" className="btn btn-danger" onClick={() => this.returnItems(index)}>Rendre</a>
                 </li>
               )
             })}
