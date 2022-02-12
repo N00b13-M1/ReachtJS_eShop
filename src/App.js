@@ -35,8 +35,8 @@ class App extends Component {
     money -= products[i].price
     products[i].stock--
     basket.push(products[i])
-    console.log(basket)
-    console.log(basket[i])
+    // console.log(basket)
+    // console.log(basket[i])
 
     if(this.state.products[i].stock === 1) {
       document.getElementsByClassName("card-body")[i].style.backgroundColor = "orange"
@@ -45,14 +45,15 @@ class App extends Component {
       
       document.getElementsByClassName("card-body")[i].style.backgroundColor = "red";
       document.getElementsByClassName("card-body")[i].style.color = "white";
+      document.getElementsByClassName("card-stock")[i].textContent = "Out of Stock"
     } 
+
     this.setState({money, basket, products})
   }
 
   returnItems = (i) => {
     let {money, basket, products} = {...this.state}
-    console.log(basket)
-    console.log(basket[i])
+  
     if (basket[i].name  === "Coca Cola"){
       money += products[0].price
       products[0].stock++
@@ -62,7 +63,11 @@ class App extends Component {
       else if (products[0].stock > 1) {
         document.getElementsByClassName("card-body")[0].style.backgroundColor = "white";
         document.getElementsByClassName("card-body")[0].style.color = "black";
-      } 
+      }
+      document.getElementsByClassName("card-stock")[0].textContent = "Stock : " + products[0].stock + " unités"
+      // console.log(basket)
+      // console.log(basket[i])
+      console.log(products[0].price)
     } 
     if (basket[i].name  === "Fanta"){
       money += products[1].price
@@ -74,6 +79,7 @@ class App extends Component {
         document.getElementsByClassName("card-body")[1].style.backgroundColor = "white";
         document.getElementsByClassName("card-body")[1].style.color = "black";
       } 
+      document.getElementsByClassName("card-stock")[1].textContent = "Stock : " + products[1].stock + " unités"
     }
     if (basket[i].name === "Ice Tea"){
       money += products[2].price
@@ -85,20 +91,22 @@ class App extends Component {
         document.getElementsByClassName("card-body")[2].style.backgroundColor = "white";
         document.getElementsByClassName("card-body")[2].style.color = "black";
       } 
+      document.getElementsByClassName("card-stock")[2].textContent = "Stock : " + products[2].stock + " unités"
     }
     basket.splice(i,1)
+    // console.log("hello")
     this.setState({money, basket, products})
 
   }
 
   render() {
-    console.log(this.state.basket)
+    // console.log(this.state.basket)
     return (
       <div>
         <div className="container">
         <h2>Mon Argent: {this.state.money}</h2>
         <div className="row d-flex">
-          <div className="col-4">
+          <div className="col-lg-4 col-md-4 col-12 my-1">
           <div className="card">
                     <img src={this.state.products[0].img} className="img-fluid card-img-top" alt="coca" />
                     <div className="card-body">
@@ -114,7 +122,7 @@ class App extends Component {
                     </div>
                 </div>
           </div>
-          <div className="col-4">
+          <div className="col-lg-4 col-md-4 col-12 my-1">
           <div className="card">
                     <img src={this.state.products[1].img} className="img-fluid card-img-top" alt="fanta" />
                     <div className="card-body">
@@ -127,11 +135,10 @@ class App extends Component {
                             {/* {console.log('plop')} */}
                           </div>
                         }
-  
                     </div>
                 </div>
           </div>
-          <div className="col-4">
+          <div className="col-lg-4 col-md-4 col-12 my-1">
           <div className="card">
                     <img src={this.state.products[2].img} className="img-fluid card-img-top" alt="ice-tea" />
                     <div className="card-body">
@@ -152,9 +159,9 @@ class App extends Component {
           <ul className="list-unstyled">
             {this.state.basket.map((element, index) => {
               return(
-                <li key={index} className="d-flex my-2 border border-1 w-75 justify-content-between p-2">
+                <li key={index} className="basketitem d-flex my-2 border border-1 justify-content-between p-2">
                   <p className="my-auto mx-3">Produit: {element.name} || Unités: 1</p>
-                  <a href="###" className="btn btn-danger" onClick={() => this.returnItems(index)}>Rendre</a>
+                  <a href="###" className="btn btn-danger my-auto" onClick={() => this.returnItems(index)}>Rendre</a>
                 </li>
               )
             })}
@@ -167,3 +174,5 @@ class App extends Component {
 }
 
 export default App;
+
+

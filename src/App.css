@@ -1,0 +1,15 @@
+/* Media Query for Mobile Devices */
+@media (max-width: 480px) {
+    li {
+        width: 100%
+    }
+}
+
+/* Media Query for low resolution  Tablets, Ipads */
+@media (min-width: 481px) {
+    li {
+        width: 50%
+    }
+}
+
+
